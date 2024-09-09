@@ -20,19 +20,27 @@ headers = {
 url = 'https://stock.xueqiu.com/v5/stock/portfolio/stock/list.json?pid=-1&category=1&size=1000&uid=8282709675'
 
 
+# url = 'https://stock.xueqiu.com/v5/stock/portfolio/stock/list.json?pid=-1&category=1&size=1000&uid=3538371992'
+
+
 # 获取股票基础信息
 
 class StockMonitor:
     def get_self_stocks(self):
-        # print(url.format(symbol=stock_symbol,timestamp=timestp))
-        response = requests.get(url, headers=headers)
-        data = json.loads(response.text)
-        # 从解析后的字典中提取stocks列表
-        stocks = data['data']['stocks']
-        return stocks
+        try:
+            response = requests.get(url, headers=headers)
+            data = json.loads(response.text)
+            # 从解析后的字典中提取stocks列表
+            stocks = data['data']['stocks']
+            names = [stock['name'] for stock in stocks]
+            return names
+        except Exception as e:
+            return response.text
 
     def send_message(self, add_stocks, remove_stocks):
-        # 你的Server酱API密钥
+        if len(add_stocks) == 0 and len(remove_stocks) == 0:
+            return
+            # 你的Server酱API密钥
         SCKEY = 'SCT205498TVznAyJOnylNd4bE42tWSz3mp'
 
         # 发送消息到钉钉的URL
@@ -41,7 +49,8 @@ class StockMonitor:
         # 要发送的消息内容，你可以根据Server酱的文档来格式化这个JSON
         # 这里只是一个简单的示例
         data = {
-            "text": f"新增:{add_stocks},移除:{remove_stocks}"
+            "text": f"新增:{add_stocks},移除:{remove_stocks}",
+            "desp": f"新增:{add_stocks},移除:{remove_stocks}"
         }
 
         # 发送POST请求
@@ -49,3 +58,25 @@ class StockMonitor:
 
         # 打印响应结果，检查是否发送成功
         print(response.text)
+
+    def get_add_stocks(self, stocks, previous):
+        return [stock for stock in stocks if stock not in previous]
+
+    def get_remove_stocks(self, stocks, previous):
+        return [stock for stock in previous if stock not in stocks]
+
+    def send_message2(self, title, content):
+        SCKEY = 'SCT205498TVznAyJOnylNd4bE42tWSz3mp'
+
+        # 发送消息到钉钉的URL
+        url = f'https://sctapi.ftqq.com/{SCKEY}.send?channel=2'
+
+        # 要发送的消息内容，你可以根据Server酱的文档来格式化这个JSON
+        # 这里只是一个简单的示例
+        data = {
+            "text": f"{title}",
+            "desp": f"{content}"
+        }
+
+        # 发送POST请求
+        response = requests.post(url, data=data)
