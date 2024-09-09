@@ -22,3 +22,4 @@ if __name__ == "__main__":
         current_minute = current_time.minute
         if current_hour in send_times and current_minute == 0:  # 确保是整点
             stock_monitor.send_message2("轮回666小助手在线中", "")
+            time.sleep(60)
