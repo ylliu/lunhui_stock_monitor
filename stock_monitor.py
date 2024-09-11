@@ -80,3 +80,25 @@ class StockMonitor:
 
         # 发送POST请求
         response = requests.post(url, data=data)
+
+    def send_message_to_wechat(self, add_stocks, remove_stocks):
+        if len(add_stocks) == 0 and len(remove_stocks) == 0:
+            return
+            # 你的Server酱API密钥
+        SCKEY = 'SCT205498TVznAyJOnylNd4bE42tWSz3mp'
+
+        # 发送消息到钉钉的URL
+        url = f'https://sctapi.ftqq.com/{SCKEY}.send?channel=9'
+
+        # 要发送的消息内容，你可以根据Server酱的文档来格式化这个JSON
+        # 这里只是一个简单的示例
+        data = {
+            "text": f"新增:{add_stocks},移除:{remove_stocks}",
+            "desp": f"新增:{add_stocks},移除:{remove_stocks}"
+        }
+
+        # 发送POST请求
+        response = requests.post(url, data=data)
+
+        # 打印响应结果，检查是否发送成功
+        print(response.text)
