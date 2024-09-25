@@ -81,6 +81,22 @@ class StockMonitor:
         # 发送POST请求
         response = requests.post(url, data=data)
 
+    def send_message2_wechat(self, title, content):
+        SCKEY = 'SCT205498TVznAyJOnylNd4bE42tWSz3mp'
+
+        # 发送消息到钉钉的URL
+        url = f'https://sctapi.ftqq.com/{SCKEY}.send?channel=9'
+
+        # 要发送的消息内容，你可以根据Server酱的文档来格式化这个JSON
+        # 这里只是一个简单的示例
+        data = {
+            "text": f"{title}",
+            "desp": f"{content}"
+        }
+
+        # 发送POST请求
+        response = requests.post(url, data=data)
+
     def send_message_to_wechat(self, add_stocks, remove_stocks):
         if len(add_stocks) == 0 and len(remove_stocks) == 0:
             return
