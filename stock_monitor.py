@@ -93,7 +93,7 @@ class StockMonitor:
         # 要发送的消息内容，你可以根据Server酱的文档来格式化这个JSON
         # 这里只是一个简单的示例
         data = {
-            "text": f"新增:{add_stocks},移除:{remove_stocks}",
+            "text": f"new stock coming",
             "desp": f"新增:{add_stocks},移除:{remove_stocks}"
         }
 
