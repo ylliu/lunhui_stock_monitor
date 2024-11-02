@@ -8,6 +8,7 @@ class TestStockMonitor(unittest.TestCase):
     def test_should_get_stock_of_user(self):
         stock_monitor = StockMonitor()
         stocks = stock_monitor.get_self_stocks()
+        print(stocks)
         self.assertEqual(17, len(stocks))
         self.assertEqual(True, isinstance(stocks, list))
 
