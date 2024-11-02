@@ -13,7 +13,8 @@ class TestStockMonitor(unittest.TestCase):
 
     def test_should_send_message_to_dingtalk_group(self):
         stock_monitor = StockMonitor()
-        stock_monitor.send_message('赛里斯', '精研科技')
+        # stock_monitor.send_message('赛里斯', '精研科技')
+        stock_monitor.send_message_to_wechat('赛里斯', '精研科技')
 
     def test_get_add_stocks(self):
         stock_monitor = StockMonitor()
