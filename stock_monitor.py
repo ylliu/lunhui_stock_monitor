@@ -35,7 +35,10 @@ class StockMonitor:
             # 从解析后的字典中提取stocks列表
             stocks = data['data']['stocks']
             names = [stock['name'] for stock in stocks]
-            return names
+            # 过滤掉不需要的股票名称
+            exclude_names = ['赛力斯', 'XD赛力斯']
+            filtered_names = [name for name in names if name not in exclude_names]
+            return filtered_names
         except Exception as e:
             return response.text
 
