@@ -18,7 +18,7 @@ if __name__ == "__main__":
         add_stocks = stock_monitor.get_add_stocks(stocks, previous)
         remove_stocks = stock_monitor.get_remove_stocks(stocks, previous)
         stock_monitor.send_message(add_stocks, remove_stocks)
-        stock_monitor.send_message_to_wechat(add_stocks, remove_stocks)
+        #stock_monitor.send_message_to_wechat(add_stocks, remove_stocks)
         current_time = datetime.now()
         current_hour = current_time.hour
         current_minute = current_time.minute
