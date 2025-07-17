@@ -14,7 +14,7 @@ if __name__ == "__main__":
         if isinstance(stocks, str):
             stock_monitor.send_message2("系统异常，请检查cookie是否过期", stocks)
             stock_monitor.send_message2_wechat("系统异常，请检查cookie是否过期", stocks)
-            break
+            time.sleep(10*60*60)
         add_stocks = stock_monitor.get_add_stocks(stocks, previous)
         remove_stocks = stock_monitor.get_remove_stocks(stocks, previous)
         stock_monitor.send_message(add_stocks, remove_stocks)
